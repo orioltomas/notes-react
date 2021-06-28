@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import './app.css'
 import noteService from './services/notes'
 import Headline from './components/Headline'
 import Note from './components/Note'
@@ -44,7 +45,7 @@ const App = () => {
     })
     .catch(error => {
       alert(
-        `the note '${note.content}' was already deleted from server`
+        `The note '${note.content}' was already deleted from server.`
       )
       setNotes(notes.filter(n => n.id !== id))
     })
@@ -53,14 +54,16 @@ const App = () => {
   return (
     <div>
       <Headline text="Notes" />
-      {notes.map((note, index) => {
-        return <Note key={index} note={note} toggleImportance={() => toggleImportanceOf(note.id)} />
-      })}
       <NoteForm 
         submitFunction={addNote} 
         noteValue={newNote} 
         noteChangeFunction={handleNewNoteChange} 
       />
+      <ul className="content">
+        {notes.map((note, index) => {
+          return <Note key={index} note={note} toggleImportance={() => toggleImportanceOf(note.id)} />
+        })}
+      </ul>
     </div>
   )
 }
